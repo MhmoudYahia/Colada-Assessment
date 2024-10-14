@@ -24,6 +24,12 @@ class ProductsService {
 
     const matchStage: any = {};
 
+    if (startDate && endDate) {
+      matchStage['orders.date'] = {
+        $gte: new Date(startDate),
+        $lte: new Date(endDate),
+      };
+    }
     if (lat && lng && radius) {
       matchStage['orders.location'] = {
         $geoWithin: {
