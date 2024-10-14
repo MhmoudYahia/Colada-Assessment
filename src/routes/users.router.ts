@@ -1,7 +1,7 @@
 import express, { Router } from 'express';
 import * as usersController from '../controllers/users.controller';
 
-import { validateRequest, QueryValidationRules } from '../common';
+import { validateRequest, UsersQueryValidationRules } from '../common';
 
 const router: Router = express.Router();
 /**
@@ -77,6 +77,6 @@ const router: Router = express.Router();
 
 router
   .route('/top-spenders')
-  .get(QueryValidationRules, validateRequest, usersController.topSpenders);
+  .get(UsersQueryValidationRules, validateRequest, usersController.topSpenders);
 
 export { router as usersRouter };

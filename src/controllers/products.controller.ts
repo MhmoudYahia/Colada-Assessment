@@ -1,14 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
 import { catchAsync } from '../common';
-import { usersService } from '../services/users.service';
+import { productsService } from '../services/products.service';
 
-export const topSpenders = catchAsync(
+export const demandAnalysis = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { category, minOrders, lat, lng, radius, daysRecency } = req.query;
+    const { startDate, endDate, lat, lng, radius, daysRecency } = req.query;
 
-    const users = await usersService.topSpenders({
-        category: category? category as string : undefined,
-        minOrders: minOrders ? parseInt(minOrders as string, 10) : undefined,
+    const products = await productsService.demandAnalysis({
+        startDate: startDate ? startDate as string : undefined,
+        endDate: endDate ? endDate as string : undefined,
         lat: lat ? parseFloat(lat as string) : undefined,
         lng: lng ? parseFloat(lng as string) : undefined,
         radius: radius ? parseFloat(radius as string) : undefined,
@@ -19,7 +19,7 @@ export const topSpenders = catchAsync(
     res.status(201).json({
       status: 'success',
       data: {
-        users,
+        products,
       },
     });
   }

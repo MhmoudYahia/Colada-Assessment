@@ -1,14 +1,14 @@
 import { query } from 'express-validator';
 
-export const UsersQueryValidationRules = [
-  query('category')
+export const ProductsQueryValidationRules = [
+  query('startDate')
     .optional()
-    .isString()
-    .withMessage('Category must be a string'),
-  query('minOrders')
+    .isISO8601()
+    .withMessage('startDate must be a valid ISO 8601 date'),
+  query('endDate')
     .optional()
-    .isInt({ min: 0 })
-    .withMessage('minOrders must be a non-negative integer'),
+    .isISO8601()
+    .withMessage('endDate must be a valid ISO 8601 date'),
   query('lat')
     .optional()
     .isFloat({ min: -90, max: 90 })
