@@ -1,0 +1,35 @@
+
+services:
+  database:
+    image: mongo:3
+    container_name: mongodb-container
+    ports:
+       - '27018:27017'
+    volumes:
+      - colada_db_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  backend:
+    image: mahmoudyahia/backend-colada-image:latest
+    container_name: backend-container
+    ports:
+      - "2027:2027"  # Expose container port 2023 to host
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"  
+    depends_on:
+      - database  
+    environment:
+      NODE_ENV: development
+      PORT: 2027
+      MONGODB_URI: mongodb://root:password@database:27017/coladaDB?authSource=admin
+
+        
+volumes:
+  colada_db_data:
+    driver: local
