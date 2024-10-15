@@ -30,6 +30,7 @@ class ProductsService {
         $lte: new Date(endDate),
       };
     }
+
     if (lat && lng && radius) {
       matchStage['orders.location'] = {
         $geoWithin: {
@@ -61,7 +62,7 @@ class ProductsService {
         $unwind: '$orders.products',
       },
       {
-        $match: matchStage,
+        $match: { ...matchStage, category: { $ne: null } },
       },
       {
         $group: {

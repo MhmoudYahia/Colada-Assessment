@@ -16,7 +16,7 @@ export const topSpenders = catchAsync(
       });
 
     // Respond with users data 
-    res.status(201).json({
+    res.status(200).json({
       status: 'success',
       data: {
         users,

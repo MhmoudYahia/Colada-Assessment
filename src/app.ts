@@ -4,7 +4,7 @@ import compression from 'compression';
 import { rateLimit } from 'express-rate-limit';
 import helmet from 'helmet';
 import cors from 'cors';
-import bodyParser from 'body-parser'; 
+import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import swaggerUi from 'swagger-ui-express';
 import { AppError, swaggerSpec } from './common';
@@ -70,6 +70,14 @@ app.get('/docs.json', (_req: Request, res: Response) => {
 
 app.all('*', (req: Request, res: Response, next: NextFunction) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+});
+
+app.use((err: AppError, req: Request, res: Response, next: NextFunction) => {
+  err.statusCode = err.statusCode || 500;
+  res.status(err.statusCode).json({
+    status: err.status,
+    message: err.message,
+  });
 });
 
 export default app;

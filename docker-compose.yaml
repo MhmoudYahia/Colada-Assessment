@@ -15,7 +15,7 @@ services:
     image: mahmoudyahia/backend-colada-image:latest
     container_name: backend-container
     ports:
-      - "2027:2027"  # Expose container port 2023 to host
+      - "2031:2027"  # Expose container port 2023 to host
     extra_hosts:
       - "host.docker.internal:172.17.0.1"  
     depends_on:

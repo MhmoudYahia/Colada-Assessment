@@ -19,7 +19,7 @@ Navigate to the project directory and build the Docker image.
 
 ```sh
 cd path/to/your/project
-docker build -t mahmoudyahia/backend-image:latest .
+docker build -t mahmoudyahia/backend-colada-image:latest .
 ```
 
 ### Step 2: Run Docker Compose
