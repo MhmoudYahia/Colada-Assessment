@@ -7,15 +7,24 @@ export const topSpenders = catchAsync(
     const { category, minOrders, lat, lng, radius, daysRecency } = req.query;
 
     const users = await usersService.topSpenders({
-        category: category? category as string : undefined,
-        minOrders: minOrders ? parseInt(minOrders as string, 10) : undefined,
-        lat: lat ? parseFloat(lat as string) : undefined,
-        lng: lng ? parseFloat(lng as string) : undefined,
-        radius: radius ? parseFloat(radius as string) : undefined,
-        daysRecency: daysRecency ? parseInt(daysRecency as string, 10) : undefined,
-      });
+      category: category ? (category as string) : undefined,
+      minOrders: minOrders ? parseInt(minOrders as string, 10) : undefined,
+      lat: lat ? parseFloat(lat as string) : undefined,
+      lng: lng ? parseFloat(lng as string) : undefined,
+      radius: radius ? parseFloat(radius as string) : undefined,
+      daysRecency: daysRecency
+        ? parseInt(daysRecency as string, 10)
+        : undefined,
+    });
 
-    // Respond with users data 
+    if (users.length === 0) {
+      return res.status(404).json({
+        status: 'fail',
+        message: 'No users found',
+      });
+    }
+    
+    // Respond with users data
     res.status(200).json({
       status: 'success',
       data: {

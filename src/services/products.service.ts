@@ -91,6 +91,17 @@ class ProductsService {
               '$totalRevenue',
             ],
           },
+          category: '$_id',
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          category: 1,
+          totalRevenue: 1,
+          numberOfUsersOrderedTheCategoryProducts: 1,
+          demandScore: 1,
+          products: 1,
         },
       },
     ]);

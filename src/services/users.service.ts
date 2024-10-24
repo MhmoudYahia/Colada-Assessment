@@ -31,7 +31,7 @@ class UsersService {
     if (lat && lng && radius) {
       matchStage['orders.location'] = {
         $geoWithin: {
-          $centerSphere: [[lng, lat], radius / 6378.1], // Radius in radians
+          $centerSphere: [[lng, lat], radius / 6378.1], // Radius from km to radians
         },
       };
     }
